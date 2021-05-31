@@ -1114,6 +1114,82 @@ RunService:UnbindFromRenderStep(UpdateName);
 RunService:BindToRenderStep(GetDataName, 1, UpdatePlayerData);
 RunService:BindToRenderStep(UpdateName, 1, Update);
     end)
+    
+    local Tab = Window:NewTab("AutoHeal")
+    local Section = Tab:NewSection("AutoHeal")
+    Section:NewButton("AutoHeal", "DICKDICKDICKDICKDICK", function()
+    local Library = loadstring(game:HttpGet("https://pastebin.com/raw/9RqYjnzU"))()
+local UI = Library:Create("Booga Booga", UDim2.new(0, 420, 0, 450))
+local R_On = 90
+local K_On = 35
+local HPart = game.Players.LocalPlayer.Character.Humanoid
+local food = {
+    ["Bloodfruit"] = true,
+    ["Cooked Meat"] = false,
+    ["Cooked Morsel"] = false,
+    ["Cooked Fish"] = true,
+    ["Cooked Egg"] = false,
+    ["Apple"] = false,
+    ["Orange"] = false,
+    ["Berry"] = false,
+    ["Cactus Bit"] = false,
+    ["Prickly Pear"] = false,
+    ["Coconut"] = false,
+    ["Egg"] = false,
+    ["Cloudberry"] = false,
+    ["Bread"] = false,
+    ["Fried Cactus"] = false
+}
+local plr = game.Players.LocalPlayer
+local foodlabels = plr.PlayerGui.MainGui.RightPanel.Inventory.List
+local Proceed = false
+
+UI:Divider("UI by Abstract, Infinite Yield by Edge, Zwolf and Moon")
+UI:Divider("COCK")
+
+UI:Button("Infinite Yield", "Loads Infinite Yield Admin Commands", function()
+    loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
+end)
+
+UI:Slider("Regeneration CUM", "Regen on what health", 1, 100, 90, function(value)
+    R_On = value
+end)
+
+UI:Toggle("Auto Regen", "Regens on X health *Requires Food", false, function(state)
+    HPart.HealthChanged:Connect(function(health)
+        Proceed = false
+        for i,v in pairs(foodlabels:GetChildren()) do
+            if food[tostring(v)] then
+                Proceed = true
+                break
+            end
+        end
+        if health <= R_On and state == true and Proceed == true then
+            repeat
+                for i,v in pairs(foodlabels:GetChildren()) do
+                    if food[tostring(v)] then
+                        game:GetService("ReplicatedStorage").Events.UseBagItem:FireServer(tostring(v))
+                    end
+                end
+                wait()
+            until HPart.Health == 100
+        end
+        wait()
+    end)
+end)
+
+UI:Slider("Auto Kick", "We SUCK COCK", 1, 100, 35, function(value)
+    K_On = value
+end)
+
+UI:Toggle("Auto Kick", "Kicks you on X health", false, function(state)
+    HPart.HealthChanged:Connect(function(health)
+        if health <= K_On and state == true then
+            game.Players.LocalPlayer:Kick("Auto Kicked")
+        end
+    end)
+end)
+end)
 
     local Section = Tab:NewSection("Invisble Armor 2 Steps required")
     Section:NewButton("Step 1 Invisble Armor", "They Cant See Your Armor", function()
