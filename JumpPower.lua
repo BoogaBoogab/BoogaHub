@@ -17,7 +17,7 @@
         local Mouse = Player:GetMouse()
         Mouse.KeyDown:connect(function(k)
         k = k:lower()
-        if k == "x" then
+        if k == "r" then
         if _G.infinjump == true then
         _G.infinjump = false
         else
