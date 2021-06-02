@@ -15,117 +15,51 @@ if game.PlaceId == 4787629450 then
     end)
     
     local Section = Tab:NewSection("Speed Hack")
-    Section:NewButton("Speed Hack Press q to enable", "Speeds you", function()
+    Section:NewButton("Speed Hack Hold q to speed", "Speeds you", function()
      
     
-    local plr = game:GetService("Players").LocalPlayer
-    local char = plr.Character
-    local hum = char.Humanoid
-    local cam = workspace.CurrentCamera
-    local serv = game:GetService("UserInputService")
-    local mouse = plr:GetMouse()
-    
-    --hum.JumpPower = 150
-    
-    running = false
-    enabled = nil
-    died = false
-    
-    
-    if not workspace:FindFirstChild('speed hack enabled') then
-        enabled = Instance.new('BoolValue')
-        enabled.Name = 'speed hack enabled'
-        enabled.Value = true
-        enabled.Parent = workspace
-    else
-        enabled = workspace['speed hack enabled']
+  local plr = game:GetService("Players").LocalPlayer
+local char = plr.Character
+local mouse = game:GetService("Players").LocalPlayer:GetMouse()
+local hum = char:FindFirstChild("HumanoidRootPart")
+local speed = 3
+mouse.KeyDown:connect(function(key)
+    if key == "q"  then
+        loop = true
+        while loop do
+            hum.CFrame = hum.CFrame + hum.CFrame.lookVector * speed
+            wait()
+        end
+        end
+end)
+
+mouse.KeyUp:connect(function(key)
+    if key == "q"  then
+        loop = false
     end
-    
-    ------------------------------------------------------------------------------------------------------------------------------------------------
-    
-    
-    keydown = mouse.KeyDown:Connect(function(key)
-        if key == string.lower('w') then
-            running = true
-        end
-    end)
-    
-    keyup = mouse.KeyUp:Connect(function(key)
-        if key == string.lower('w') then
-            running = false
-        end
-    end)
-    
-    enabling = mouse.KeyDown:Connect(function(key)
-        if key == string.lower('q') then
-            if enabled.Value == true then
-                enabled.Value = false
-            else
-                enabled.Value = true
-            end
-        end
-    end)
-    
-    ------------------------------------------------------------------------------------------------------------------------------------------------
-    
-    hum.Died:Connect(function()
-        if keydown then keydown:Disconnect() end
-        if keyup then keyup:Disconnect() end
-        if enabling then enabling:Disconnect() end
-        died = true
-    end)
-    
-    ------------------------------------------------------------------------------------------------------------------------------------------------
-    
-    
-    while true do
-        if died == true then break end
-        if enabled.Value == true then
-            if running == true then
-                local root = char:FindFirstChild("HumanoidRootPart")
-                if root then
-                    --root.CFrame = root.CFrame + (cam.CFrame + cam.CFrame.lookVector*1).lookVector * 2
-                    root.CFrame = root.CFrame + Vector3.new(
-                        ((cam.CFrame + cam.CFrame.lookVector*1).lookVector * 1.5).X,
-                        0,
-                        ((cam.CFrame + cam.CFrame.lookVector*1).lookVector * 1.5).Z
-                    )
-                end
-            end
-        end
-        wait()
-    end
+end)
     end)
 
     local Section = Tab:NewSection("Inf Jump")
-    Section:NewButton("Inf Jump Press f to Enable and Disable", "Jump Forever", function()
-        _G.infinjump = true
+  Section:NewButton("Inf Jump", "Jump Forever also can not be disabled", function()
+      local Player = game:GetService'Players'.LocalPlayer;
+local UIS = game:GetService'UserInputService';
 
-        local Player = game:GetService("Players").LocalPlayer
-        local Mouse = Player:GetMouse()
-        Mouse.KeyDown:connect(function(k)
-        if _G.infinjump then
-        if k:byte() == 32 then
-        Humanoid = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
-        Humanoid:ChangeState("Jumping")
-        wait(0.1)
-        Humanoid:ChangeState("Seated")
-        end
-        end
+_G.JumpHeight = 50;
+
+function Action(Object, Function) if Object ~= nil then Function(Object); end end
+
+UIS.InputBegan:connect(function(UserInput)
+    if UserInput.UserInputType == Enum.UserInputType.Keyboard and UserInput.KeyCode == Enum.KeyCode.Space then
+        Action(Player.Character.Humanoid, function(self)
+            if self:GetState() == Enum.HumanoidStateType.Jumping or self:GetState() == Enum.HumanoidStateType.Freefall then
+                Action(self.Parent.HumanoidRootPart, function(self)
+                    self.Velocity = Vector3.new(0, _G.JumpHeight, 0);
+                end)
+            end
         end)
-        
-        local Player = game:GetService("Players").LocalPlayer
-        local Mouse = Player:GetMouse()
-        Mouse.KeyDown:connect(function(k)
-        k = k:lower()
-        if k == "f" then
-        if _G.infinjump == true then
-        _G.infinjump = false
-        else
-        _G.infinjump = true
-        end
-        end
-        end)
+    end
+end)
     end)
     
     --Dupe Hacks
